@@ -261,6 +261,7 @@ async def main():
         # Giảm thời gian
         time_left -= 1 / FPS
         if time_left <= 0:
+            pygame.mixer.quit()
             score_board = pygame.Rect(WIDTH // 4, HEIGHT // 3, 300, 200)
             pygame.draw.rect(screen, "#37383B", score_board)
 
