@@ -3,7 +3,7 @@ import time
 import pygame
 import sys
 import random
-# import asyncio
+import asyncio
 
 # Khởi tạo Pygame
 pygame.init()
@@ -202,7 +202,7 @@ def replay():
     return main()
 
 # Hàm chính
-def main():
+async def main():
     clock = pygame.time.Clock()
 
     basket_x = WIDTH // 2 - BASKET_SIZE // 2
@@ -265,7 +265,7 @@ def main():
             running = False
         pygame.display.update()
         clock.tick(FPS)
-        # await asyncio.sleep(0)
+        await asyncio.sleep(0)
     
     # Kết thúc game
     # if game_over:
@@ -274,5 +274,4 @@ def main():
 
 
 # asyncio.run(main())
-if __name__ == "__main__":
-    main()
+
