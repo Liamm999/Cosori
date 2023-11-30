@@ -14,7 +14,7 @@ OBJECT_WIDTH = 80
 OBJECT_HEIGHT = 90
 BASKET_SIZE = 150
 BASKET_HEIGHT = 150
-FPS = 60
+FPS = 30
 MAX_TIME = 15
 
 # Load hình ảnh trái cây
@@ -210,7 +210,7 @@ async def main():
     time_left = MAX_TIME
 
     # Danh sách đối tượng (trái cây và cục đá)
-    max_objects = 5
+    max_objects = 3
     objects = []
 
     game_over = False
@@ -229,7 +229,7 @@ async def main():
                 running = False
                 sys.exit()
             # Xử lý sự kiện chuột
-            if event.type == pygame.MOUSEMOTION:
+            if event.type == pygame.MOUSEMOTION or event.type == pygame.FINGERMOTION:
                 basket_x = event.pos[0] - BASKET_SIZE // 2
             # touch screen
             elif event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.FINGERDOWN:
@@ -261,7 +261,7 @@ async def main():
         time_left -= 1 / FPS
         if time_left <= 0:
             draw_end_screen(score)
-            time.sleep(15)
+            time.sleep(20)
             running = False
         pygame.display.update()
         clock.tick(FPS)
