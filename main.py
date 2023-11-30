@@ -273,5 +273,5 @@ async def main():
     #         replay()
 
 
-# asyncio.run(main())
+asyncio.run(main())
 
