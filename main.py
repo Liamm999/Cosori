@@ -261,7 +261,30 @@ async def main():
         # Giảm thời gian
         time_left -= 1 / FPS
         if time_left <= 0:
-            draw_end_screen(score)
+            score_board = pygame.Rect(WIDTH // 4, HEIGHT // 3, 300, 200)
+            pygame.draw.rect(screen, "#37383B", score_board)
+
+            # Score text
+            score_text_font = pygame.font.Font("LeagueSpartan_regular.ttf", 96)
+            final_score = score_text_font.render(f"{score}", True, WHITE)
+            if (score < 10):
+                final_score = score_text_font.render(f"0{score}", True, WHITE)  
+            screen.blit(final_score, (WIDTH // 3 + 45, HEIGHT // 3 + 65))
+
+             # Set score board top img
+            score_top_img = pygame.image.load(os.path.join("", "Score_top.png"))
+            score_top_img = pygame.transform.scale(score_top_img, (200, 66))
+            score_top_img = pygame.transform.rotate(score_top_img, (3))
+            screen.blit(score_top_img, (WIDTH // 5, HEIGHT // 2 - 180))
+
+            # Draw Replay button
+            replay_button = pygame.image.load(os.path.join("", "GAME_OVER.png")) # Hot fix to game over instead of replaying
+            replay_button = pygame.transform.scale(replay_button, (200, 125))
+            replay_button_rect = replay_button.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
+
+            screen.blit(replay_button, (WIDTH // 2 - 100, HEIGHT // 2 + 50, 200, 50))
+            pygame.display.update()
+            
             time.sleep(15)
             running = False
         pygame.display.update()
