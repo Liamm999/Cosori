@@ -9,13 +9,13 @@ import asyncio
 pygame.init()
 
 # Các hằng số
-WIDTH, HEIGHT = 365, 615
-OBJECT_WIDTH = 80
-OBJECT_HEIGHT = 90
+WIDTH, HEIGHT = 600, 800
+OBJECT_WIDTH = 100
+OBJECT_HEIGHT = 110
 BASKET_SIZE = 150
 BASKET_HEIGHT = 150
-FPS = 30
-MAX_TIME = 20
+FPS = 60
+MAX_TIME = 15
 
 # Load hình ảnh trái cây
 fruit_images = [
@@ -47,15 +47,15 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Fruit Catcher")
 
 # Tải âm thanh
-# pygame.mixer.init()
-# catch_fruits_sound = pygame.mixer.Sound("catch_fruits.ogg")
-# catch_tools_sound = pygame.mixer.Sound("catch_tools.ogg")
+pygame.mixer.init()
+catch_fruits_sound = pygame.mixer.Sound("catch_fruits.ogg")
+catch_tools_sound = pygame.mixer.Sound("catch_tools.ogg")
 
 
 # Khởi tạo âm thanh nền
-# pygame.mixer.music.load("gamemusic.ogg")
-# pygame.mixer.music.set_volume(0.7)
-# pygame.mixer.music.play(-1)
+pygame.mixer.music.load("gamemusic.ogg")
+pygame.mixer.music.set_volume(0.7)
+pygame.mixer.music.play(-1)
 
 # Load hình nền
 background = pygame.image.load(os.path.join("", "smaller_background.jpg"))
@@ -104,7 +104,7 @@ def draw_info(score, time):
     )
     start_x = (WIDTH / 2) // 2
 
-    score_x = 3
+    score_x = WIDTH // 5
     score_y = 20
 
     time_x = score_x + total_width
@@ -159,7 +159,7 @@ def draw_end_screen(score):
    
     # set board
     # x, y, widht, height
-    score_board = pygame.Rect(50, HEIGHT // 4, 260, 200)
+    score_board = pygame.Rect(WIDTH // 4, HEIGHT // 3, 300, 200)
     pygame.draw.rect(screen, "#37383B", score_board)
     
     # Score text
@@ -167,13 +167,13 @@ def draw_end_screen(score):
     final_score = score_text_font.render(f"{score}", True, WHITE)
     if (score < 10):
         final_score = score_text_font.render(f"0{score}", True, WHITE)  
-    screen.blit(final_score, (260 // 2, HEIGHT // 4 + 70))
+    screen.blit(final_score, (WIDTH // 3 + 45, HEIGHT // 3 + 65))
     
-     # Set score board img
+     # Set score board top img
     score_top_img = pygame.image.load(os.path.join("", "Score_top.png"))
     score_top_img = pygame.transform.scale(score_top_img, (200, 66))
     score_top_img = pygame.transform.rotate(score_top_img, (3))
-    screen.blit(score_top_img, (35, HEIGHT // 2 - 200))
+    screen.blit(score_top_img, (WIDTH // 5, HEIGHT // 2 - 180))
     
     # Draw Replay button
     replay_button = pygame.image.load(os.path.join("", "GAME_OVER.png")) # Hot fix to game over instead of replaying
@@ -184,7 +184,7 @@ def draw_end_screen(score):
     
     pygame.display.update()
     
-    # # Wait for user input
+    # Wait for user input
     # while True:
     #     for event in pygame.event.get():
     #         if event.type == pygame.QUIT:
@@ -214,6 +214,7 @@ async def main():
     objects = []
 
     game_over = False
+
     running = True
     while running:
         screen.blit(background, (0, 0))
@@ -245,9 +246,9 @@ async def main():
                 objects.remove(obj)
                 if obj[2] == "fruit":
                     score += 1
-                    # catch_fruits_sound.play()
+                    catch_fruits_sound.play()
                 elif obj[2] == "tool":
-                    # catch_tools_sound.play()
+                    catch_tools_sound.play()
                     if score > 0:
                         score -= 1
                         
