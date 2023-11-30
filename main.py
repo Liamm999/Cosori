@@ -229,7 +229,7 @@ async def main():
                 running = False
                 sys.exit()
             # Xử lý sự kiện chuột
-            if event.type == pygame.MOUSEMOTION or event.type == pygame.FINGERMOTION:
+            if event.type == pygame.MOUSEMOTION:
                 basket_x = event.pos[0] - BASKET_SIZE // 2
             # touch screen
             elif event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.FINGERDOWN:
