@@ -158,41 +158,37 @@ def draw_end_screen(score):
     # pygame.mouse.set_visible(100)
    
     # set board
-    # x, y, widht, height
-    score_board = pygame.Rect(WIDTH // 4, HEIGHT // 3, 300, 200)
-    pygame.draw.rect(screen, "#37383B", score_board)
+    score_board = pygame.image.load(os.path.join("", "FINAL_SCORE.png"))
+    score_board = pygame.transform.scale(score_board, (500, 391))
+    screen.blit(score_board, (WIDTH // 12, HEIGHT // 5))
+    
     
     # Score text
-    score_text_font = pygame.font.Font("LeagueSpartan_regular.ttf", 96)
+    score_text_font = pygame.font.Font("LeagueSpartan_regular.ttf", 102)
     final_score = score_text_font.render(f"{score}", True, WHITE)
     if (score < 10):
         final_score = score_text_font.render(f"0{score}", True, WHITE)  
     screen.blit(final_score, (WIDTH // 3 + 45, HEIGHT // 3 + 65))
     
-     # Set score board top img
-    score_top_img = pygame.image.load(os.path.join("", "Score_top.png"))
-    score_top_img = pygame.transform.scale(score_top_img, (200, 66))
-    score_top_img = pygame.transform.rotate(score_top_img, (3))
-    screen.blit(score_top_img, (WIDTH // 5, HEIGHT // 2 - 180))
     
     # Draw Replay button
     replay_button = pygame.image.load(os.path.join("", "GAME_OVER.png")) # Hot fix to game over instead of replaying
-    replay_button = pygame.transform.scale(replay_button, (200, 125))
+    replay_button = pygame.transform.scale(replay_button, (300, 239))
     replay_button_rect = replay_button.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
 
-    screen.blit(replay_button, (WIDTH // 2 - 100, HEIGHT // 2 + 50, 200, 50))
+    screen.blit(replay_button, (WIDTH // 4, HEIGHT // 2 + 60))
     
     pygame.display.update()
     
     # Wait for user input
-    # while True:
-    #     for event in pygame.event.get():
-    #         if event.type == pygame.QUIT:
-    #             pygame.quit()
-    #             sys.exit()
-    #         elif event.type == pygame.MOUSEBUTTONDOWN:
-    #             if replay_button_rect.collidepoint(event.pos):
-    #                 return True  # Replay button clicked
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if replay_button_rect.collidepoint(event.pos):
+                    return True  # Replay button clicked
 
 
 # Hàm chơi lại
@@ -214,8 +210,8 @@ async def main():
     objects = []
 
     game_over = False
-
     running = True
+    
     while running:
         screen.blit(background, (0, 0))
         # pygame.mouse.set_visible(0)
@@ -262,33 +258,33 @@ async def main():
         time_left -= 1 / FPS
         if time_left <= 0:
             pygame.mixer.quit()
-            score_board = pygame.Rect(WIDTH // 4, HEIGHT // 3, 300, 200)
-            pygame.draw.rect(screen, "#37383B", score_board)
+            # set board
+            score_board = pygame.image.load(os.path.join("", "FINAL_SCORE.png"))
+            score_board = pygame.transform.scale(score_board, (500, 391))
+            screen.blit(score_board, (WIDTH // 12, HEIGHT // 5))
+
 
             # Score text
-            score_text_font = pygame.font.Font("LeagueSpartan_regular.ttf", 96)
+            score_text_font = pygame.font.Font("LeagueSpartan_regular.ttf", 102)
             final_score = score_text_font.render(f"{score}", True, WHITE)
             if (score < 10):
                 final_score = score_text_font.render(f"0{score}", True, WHITE)  
             screen.blit(final_score, (WIDTH // 3 + 45, HEIGHT // 3 + 65))
 
-             # Set score board top img
-            score_top_img = pygame.image.load(os.path.join("", "Score_top.png"))
-            score_top_img = pygame.transform.scale(score_top_img, (200, 66))
-            score_top_img = pygame.transform.rotate(score_top_img, (3))
-            screen.blit(score_top_img, (WIDTH // 5, HEIGHT // 2 - 180))
 
             # Draw Replay button
             replay_button = pygame.image.load(os.path.join("", "GAME_OVER.png")) # Hot fix to game over instead of replaying
-            replay_button = pygame.transform.scale(replay_button, (200, 125))
+            replay_button = pygame.transform.scale(replay_button, (300, 239))
             replay_button_rect = replay_button.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
 
-            screen.blit(replay_button, (WIDTH // 2 - 100, HEIGHT // 2 + 50, 200, 50))
+            screen.blit(replay_button, (WIDTH // 4, HEIGHT // 2 + 60))
+
             pygame.display.update()
             await asyncio.sleep(0)
             
             time.sleep(15)
             running = False
+            
         pygame.display.update()
         clock.tick(FPS)
         await asyncio.sleep(0)
