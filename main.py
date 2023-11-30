@@ -15,7 +15,7 @@ OBJECT_HEIGHT = 90
 BASKET_SIZE = 150
 BASKET_HEIGHT = 150
 FPS = 30
-MAX_TIME = 15
+MAX_TIME = 20
 
 # Load hình ảnh trái cây
 fruit_images = [
@@ -261,7 +261,7 @@ async def main():
         time_left -= 1 / FPS
         if time_left <= 0:
             draw_end_screen(score)
-            time.sleep(20)
+            time.sleep(15)
             running = False
         pygame.display.update()
         clock.tick(FPS)
