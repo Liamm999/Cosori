@@ -46,15 +46,15 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Fruit Catcher")
 
 # Tải âm thanh
-pygame.mixer.init()
-catch_fruits_sound = pygame.mixer.Sound("catch_fruits.ogg")
-catch_tools_sound = pygame.mixer.Sound("catch_tools.ogg")
+# pygame.mixer.init()
+# catch_fruits_sound = pygame.mixer.Sound("catch_fruits.ogg")
+# catch_tools_sound = pygame.mixer.Sound("catch_tools.ogg")
 
 
 # Khởi tạo âm thanh nền
-pygame.mixer.music.load("gamemusic.ogg")
-pygame.mixer.music.set_volume(0.7)
-pygame.mixer.music.play(-1)
+# pygame.mixer.music.load("gamemusic.ogg")
+# pygame.mixer.music.set_volume(0.7)
+# pygame.mixer.music.play(-1)
 
 # Load hình nền
 background = pygame.image.load(os.path.join("", "smaller_background.jpg"))
@@ -244,9 +244,9 @@ async def main():
                 objects.remove(obj)
                 if obj[2] == "fruit":
                     score += 1
-                    catch_fruits_sound.play()
+                    # catch_fruits_sound.play()
                 elif obj[2] == "tool":
-                    catch_tools_sound.play()
+                    # catch_tools_sound.play()
                     if score > 0:
                         score -= 1
             if obj[1] > HEIGHT:
