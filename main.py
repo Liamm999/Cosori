@@ -1,4 +1,5 @@
 import os
+import time
 import pygame
 import sys
 import random
@@ -46,15 +47,15 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Fruit Catcher")
 
 # Tải âm thanh
-# pygame.mixer.init()
-# catch_fruits_sound = pygame.mixer.Sound("catch_fruits.ogg")
-# catch_tools_sound = pygame.mixer.Sound("catch_tools.ogg")
+pygame.mixer.init()
+catch_fruits_sound = pygame.mixer.Sound("catch_fruits.ogg")
+catch_tools_sound = pygame.mixer.Sound("catch_tools.ogg")
 
 
 # Khởi tạo âm thanh nền
-# pygame.mixer.music.load("gamemusic.ogg")
-# pygame.mixer.music.set_volume(0.7)
-# pygame.mixer.music.play(-1)
+pygame.mixer.music.load("gamemusic.ogg")
+pygame.mixer.music.set_volume(0.7)
+pygame.mixer.music.play(-1)
 
 # Load hình nền
 background = pygame.image.load(os.path.join("", "smaller_background.jpg"))
@@ -183,15 +184,15 @@ def draw_end_screen(score):
     
     pygame.display.update()
     
-    # Wait for user input
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                if replay_button_rect.collidepoint(event.pos):
-                    return True  # Replay button clicked
+    # # Wait for user input
+    # while True:
+    #     for event in pygame.event.get():
+    #         if event.type == pygame.QUIT:
+    #             pygame.quit()
+    #             sys.exit()
+    #         elif event.type == pygame.MOUSEBUTTONDOWN:
+    #             if replay_button_rect.collidepoint(event.pos):
+    #                 return True  # Replay button clicked
 
 
 # Hàm chơi lại
@@ -228,10 +229,10 @@ async def main():
                 running = False
                 sys.exit()
             # Xử lý sự kiện chuột
-            if event.type == pygame.MOUSEMOTION:
+            if event.type == pygame.MOUSEMOTION or event.type == pygame.FINGERMOTION:
                 basket_x = event.pos[0] - BASKET_SIZE // 2
             # touch screen
-            elif event.type == pygame.FINGERMOTION:
+            elif event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.FINGERDOWN:
                 basket_x = event.pos[0] - BASKET_SIZE // 2
         # Vẽ và di chuyển trái cây hoặc tool
         for obj in objects:
@@ -244,11 +245,12 @@ async def main():
                 objects.remove(obj)
                 if obj[2] == "fruit":
                     score += 1
-                    # catch_fruits_sound.play()
+                    catch_fruits_sound.play()
                 elif obj[2] == "tool":
-                    # catch_tools_sound.play()
+                    catch_tools_sound.play()
                     if score > 0:
                         score -= 1
+                        
             if obj[1] > HEIGHT:
                 objects.remove(obj)
         # Vẽ và di chuyển rổ
@@ -259,6 +261,7 @@ async def main():
         time_left -= 1 / FPS
         if time_left <= 0:
             draw_end_screen(score)
+            time.sleep(15)
             running = False
         pygame.display.update()
         clock.tick(FPS)
