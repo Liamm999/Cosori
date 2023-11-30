@@ -15,7 +15,7 @@ OBJECT_HEIGHT = 110
 BASKET_SIZE = 150
 BASKET_HEIGHT = 150
 FPS = 60
-MAX_TIME = 15
+MAX_TIME = 30
 
 # Load hình ảnh trái cây
 fruit_images = [
