@@ -47,15 +47,15 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Fruit Catcher")
 
 # Tải âm thanh
-pygame.mixer.init()
-catch_fruits_sound = pygame.mixer.Sound("catch_fruits.ogg")
-catch_tools_sound = pygame.mixer.Sound("catch_tools.ogg")
+# pygame.mixer.init()
+# catch_fruits_sound = pygame.mixer.Sound("catch_fruits.ogg")
+# catch_tools_sound = pygame.mixer.Sound("catch_tools.ogg")
 
 
 # Khởi tạo âm thanh nền
-pygame.mixer.music.load("gamemusic.ogg")
-pygame.mixer.music.set_volume(0.7)
-pygame.mixer.music.play(-1)
+# pygame.mixer.music.load("gamemusic.ogg")
+# pygame.mixer.music.set_volume(0.7)
+# pygame.mixer.music.play(-1)
 
 # Load hình nền
 background = pygame.image.load(os.path.join("", "smaller_background.jpg"))
@@ -126,7 +126,7 @@ def draw_info(score, time):
 
 # Start screen
 def start_screen():
-    pygame.mouse.set_visible(100)
+    # pygame.mouse.set_visible(100)
     play_button = pygame.image.load(os.path.join("", "play_button.png"))
     play_button = pygame.transform.scale(play_button, (250, 78))
     play_button_rect = play_button.get_rect(center=(WIDTH // 2, HEIGHT // 2))
@@ -155,7 +155,7 @@ def start_screen():
 # Hàm vẽ bảng kết thúc
 def draw_end_screen(score):
     # Mouse visible
-    pygame.mouse.set_visible(100)
+    # pygame.mouse.set_visible(100)
    
     # set board
     # x, y, widht, height
@@ -198,7 +198,7 @@ def draw_end_screen(score):
 # Hàm chơi lại
 def replay():
     clock = pygame.time.Clock()
-    pygame.mouse.set_visible(0)
+    # pygame.mouse.set_visible(0)
     asyncio.run(main())
 
 # Hàm chính
@@ -217,7 +217,7 @@ async def main():
     running = True
     while running:
         screen.blit(background, (0, 0))
-        pygame.mouse.set_visible(0)
+        # pygame.mouse.set_visible(0)
         # Tạo trái cây hoặc tool ngẫu nhiên
         if random.randint(0, 100) < 5 and len(objects) < max_objects:
             object_type = random.choice(["fruit", "tool"])
@@ -245,9 +245,9 @@ async def main():
                 objects.remove(obj)
                 if obj[2] == "fruit":
                     score += 1
-                    catch_fruits_sound.play()
+                    # catch_fruits_sound.play()
                 elif obj[2] == "tool":
-                    catch_tools_sound.play()
+                    # catch_tools_sound.play()
                     if score > 0:
                         score -= 1
                         
