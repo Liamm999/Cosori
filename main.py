@@ -284,6 +284,7 @@ async def main():
 
             screen.blit(replay_button, (WIDTH // 2 - 100, HEIGHT // 2 + 50, 200, 50))
             pygame.display.update()
+            await asyncio.sleep(0)
             
             time.sleep(15)
             running = False
