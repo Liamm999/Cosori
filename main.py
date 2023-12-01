@@ -126,7 +126,7 @@ def draw_info(score, time):
 
 # Start screen
 def start_screen():
-    # pygame.mouse.set_visible(100)
+    pygame.mouse.set_visible(100)
     play_button = pygame.image.load(os.path.join("", "play_button.png"))
     play_button = pygame.transform.scale(play_button, (250, 78))
     play_button_rect = play_button.get_rect(center=(WIDTH // 2, HEIGHT // 2))
@@ -155,7 +155,7 @@ def start_screen():
 # Hàm vẽ bảng kết thúc
 def draw_end_screen(score):
     # Mouse visible
-    # pygame.mouse.set_visible(100)
+    pygame.mouse.set_visible(100)
    
     # set board
     score_board = pygame.image.load(os.path.join("", "FINAL_SCORE.png"))
@@ -194,7 +194,7 @@ def draw_end_screen(score):
 # Hàm chơi lại
 def replay():
     clock = pygame.time.Clock()
-    # pygame.mouse.set_visible(0)
+    pygame.mouse.set_visible(0)
     return main()
 
 # Hàm chính
@@ -206,7 +206,7 @@ async def main():
     time_left = MAX_TIME
 
     # Danh sách đối tượng (trái cây và cục đá)
-    max_objects = 3
+    max_objects = 5
     objects = []
 
     game_over = False
@@ -214,7 +214,7 @@ async def main():
     
     while running:
         screen.blit(background, (0, 0))
-        # pygame.mouse.set_visible(0)
+        pygame.mouse.set_visible(0)
         # Tạo trái cây hoặc tool ngẫu nhiên
         if random.randint(0, 100) < 5 and len(objects) < max_objects:
             object_type = random.choice(["fruit", "tool"])
